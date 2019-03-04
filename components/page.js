@@ -43,6 +43,7 @@ export default withMediaQuery(({ title, description, children }) => (
           margin: 0;
           font-size: 16px;
           font-family: Roboto,sans-serif;
+          -webkit-font-smoothing: antialiased;
         }
         
         /**

@@ -93,7 +93,7 @@ export default class extends React.PureComponent {
   render = ({ isMobile } = this.props) => {
     const { scrollTop, pageOffsetTop } = this.state;
     const showContact = scrollTop >= this.state.pageHeight + 300;
-    const showIntrotext = scrollTop >= 30 * 10 + 20;
+    const showIntrotext = scrollTop >= 30 * 80 + 20;
     return (
       <div className="page3" ref={e => (this.pageRef = e)}>
         <div className="contact">

@@ -14,7 +14,8 @@ const MainContainer = styled.div`
 `;
 
 const ColorBlock = styled.div`
-  height: 100vh;
+  height: auto;
+  min-height: 100vh;
   width: 100vw;
   position: relative;
   background: ${props => props.color || 'rgba(0, 0, 0, .5)'};

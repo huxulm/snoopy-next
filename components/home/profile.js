@@ -111,6 +111,9 @@ export default class extends React.PureComponent {
     const { scrollTop, pageOffsetTop } = this.state;
     const showProfile = scrollTop >= 150;
     const showIntrotext = scrollTop >= 30 * 10 + 20;
+    const showSkills = scrollTop >= 30 * 20;
+    const showSkills2 = scrollTop >= 30 * 35;
+    const showSkills3 = scrollTop >= 30 * 50;
     const items = [
       { icon: faGithubAlt, link: 'https://github.com/jackdon' },
       {
@@ -177,7 +180,7 @@ export default class extends React.PureComponent {
                     useHover={false}
                     isOpen={this.state.tip[item.key]}
                     direction="down"
-                    content={<SocialTipContent {...item} width={isMobile==true? '150' : '120'} height={true==isMobile? '150' : '120'} />}
+                    content={<SocialTipContent {...item} width={isMobile == true ? '150' : '120'} height={true == isMobile ? '150' : '120'} />}
                   >
                     <FontAwesomeIcon style={{ width: '70%', height: '70%' }} icon={item.icon} />
                   </ToolTip>
@@ -215,20 +218,92 @@ export default class extends React.PureComponent {
             )}
           </Spring>
         )}
+        <div className="skills">
+          <h1 style={{ textAlign: 'center' }}>Skills</h1>
+          <div className="wrapper">
+            <div className="divider" />
+            <h3>Programming Languages</h3>
+            <div className="languages">
+              {showSkills && <Trail key={"lang_l"} keys={[0, 1, 2]} items={['Java', 'Javascript', 'Python'].map((lang, idx) => ({ key: idx, lang }))}
+                from={
+                  {
+                    transform: 'translateX(-100%)',
+                    opacity: 0,
+                  }
+                }
+                to={
+                  {
+                    transform: 'translateX(0)',
+                    opacity: 1,
+                  }
+                }
+              >
+                {item => props => <div key={item.key} style={{ ...props }} className={"lang"}>{item.lang}</div>}
+              </Trail>}
+            </div>
+          </div>
+          <div className="wrapper">
+            <div className="divider" />
+            <h3>Backend Relatives</h3>
+            <div className="languages">
+              {showSkills2 && <Trail key={'lang_br'} keys={[0, 1, 2, 3]} items={['Node.js', 'Nginx', 'Docker', 'Micro Services'].map((lang, idx) => ({ key: idx, lang }))}
+                from={
+                  {
+                    transform: 'translateX(-100%)',
+                    opacity: 0,
+                  }
+                }
+                to={
+                  {
+                    transform: 'translateX(0)',
+                    opacity: 1,
+                  }
+                }
+              >
+                {item => props => <div key={item.key} style={{ ...props }} className={"lang"}>{item.lang}</div>}
+              </Trail>}
+            </div>
+          </div>
+
+          <div className="wrapper">
+            <div className="divider" />
+            <h3>Frontend Relatives</h3>
+            <div className="languages">
+              {showSkills3 && <Trail key={'lang_br'} keys={[0, 1, 2, 3, 4]} items={['React', 'AngularJS 1.x', 'jQuery', 'HTML5', 'CSS3'].map((lang, idx) => ({ key: idx, lang }))}
+                from={
+                  {
+                    transform: 'translateX(-100%)',
+                    opacity: 0,
+                  }
+                }
+                to={
+                  {
+                    transform: 'translateX(0)',
+                    opacity: 1,
+                  }
+                }
+              >
+                {item => props => <div key={item.key} style={{ ...props }} className={"lang"}>{item.lang}</div>}
+              </Trail>}
+            </div>
+          </div>
+        </div>
         <style jsx>
           {`
              {
-              .page1,
+              .page1, 
               .page2,
               .page3 {
                 width: 100%;
-                height: 100%;
+                min-height: 100vh;
                 display: flex;
                 align-items: center;
                 justify-content: center;
               }
               .page2 {
                 overflow: hidden;
+                box-sizing: border-box;
+                height: auto;
                 background: rgba(255, 255, 255, .4);
               }
               .avatar {
@@ -317,6 +392,64 @@ export default class extends React.PureComponent {
                 .introtext p { 
                   font-size: 1.2rem 
                 };
+              }
+              .skills {
+                font-weight: 600;
+                box-sizing: border-box;
+                font-size: 1rem;
+                position: relative;
+                color: white;
+                top: 30em;
+                margin-left: 10%;
+                margin-right: 10%;
+                padding: 2rem 2% 30rem 2%;
+                padding-bottom: 30em;
+                min-height: 60em;
+                width: 100%;
+                background: rgba(255, 255, 255, .15);
+                margin-block-start: .10em;
+                margin-block-end: .10em;
+                text-rendering: optimizelegibility;
+                -webkit-font-smoothing: antialiased;
+              }
+              .skills .wrapper {
+                background: rgba(255, 255, 255, .2);
+              }
+              .skills .languages {
+                display: flex;
+                justify-content: center;
+                font-weight: 300;
+              }
+              @media(max-width: 567px) {
+                .skills {
+                  margin-left: 0;
+                  margin-right: 0;
+
+                }
+                .skills .languages, .skills h3 {
+                  display: flex;
+                  flex-direction: column;
+                  justify-content: center;
+                  text-align: center;
+                }
+              }
+              .skills h3 {
+                margin-top: 0px;
+                font-weight: 200;
+                margin-top: .5rem;
+                color: rgba(255, 255, 255, .8);
+              }
+              .skills .divider {
+                width: 100%;
+                border-bottom: 1px solid rgba(255, 255, 255, .2);
+                background: transparent;
+              }
+              .skills .languages .lang {
+                padding: .75rem;
+                background: transparent;
+                color: white;
+                font-size: 1.5rem;
+                font-weight: 300;
               }
             }
           `}
