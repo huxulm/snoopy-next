@@ -1,7 +1,7 @@
 import React from 'react';
 import { Spring, animated, interpolate, Trail, Transition } from 'react-spring/renderprops.cjs';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faGithubAlt, faLinkedinIn, faWeixin, faWeibo } from '@fortawesome/free-brands-svg-icons';
+import { faGithubAlt, faLinkedinIn, faWeixin, faWeibo, faTwitter } from '@fortawesome/free-brands-svg-icons';
 import { faLink } from '@fortawesome/free-solid-svg-icons';
 import ToolTip from 'react-tooltip-lite';
 import QRCode from 'qrcode.react';
@@ -102,6 +102,7 @@ export default class extends React.PureComponent {
         1: false,
         2: false,
         3: false,
+        4: false,
         [item.key]: !this.state.tip[item.key],
       },
     });
@@ -123,6 +124,7 @@ export default class extends React.PureComponent {
       },
       { icon: faWeibo, link: 'https://weibo.com/u/2950950297' },
       { icon: faWeixin, link: 'https://u.wechat.com/MPFQ9hWn-SU4ByF7tyZRQ5c'/* , src: 'http://snp-assets.oss-cn-shanghai.aliyuncs.com/snoopy/wechat_qrcode_120x120.jpg' */ },
+      { icon: faTwitter, link: 'https://twitter.com/xulingming0001' },
     ].map(({ icon, link, src }, key) => ({ icon, link, src, key, isOpen: false }));
     return (
       <div className="page2" ref={e => (this.pageRef = e)}>
