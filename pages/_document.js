@@ -8,7 +8,7 @@ export default class extends Document {
           <meta name="viewport" content="width=device-width, initial-scale=1" />
           <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
           <meta name="mobile-web-app-capable" content="yes" />
-          <script type="text/javascript" src="http://api.map.baidu.com/api?v=3.0&ak=MaBzXM5DIMpEBDL8bQbLSPqzTruINegz" />
+          {/* <script type="text/javascript" src="http://api.map.baidu.com/api?v=3.0&ak=MaBzXM5DIMpEBDL8bQbLSPqzTruINegz" /> */}
           {/* Global Site Tag (gtag.js) - Google Analytics */}
           <script
             async

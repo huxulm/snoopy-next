@@ -1,5 +1,6 @@
 import React from 'react';
-import { Spring, animated, interpolate, Trail, Transition } from 'react-spring/renderprops.cjs';
+import Head from 'next/head';
+import { animated, Trail } from 'react-spring/renderprops.cjs';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLocationArrow } from '@fortawesome/free-solid-svg-icons';
 
@@ -57,7 +58,8 @@ export default class extends React.PureComponent {
     window.document.body.addEventListener('scroll', this.onTouchStart);
     window.document.body.addEventListener('resize', this.onResize);
     this.onWheel();
-    this.initLocation();
+    // this.initLocation();
+    this.initLocationAMap();
   }
 
   componentWillUnmount() {
@@ -70,18 +72,31 @@ export default class extends React.PureComponent {
   initLocation() {
     // 百度地图API功能
     var map = new BMap.Map("mapContainer");
-    var point = new BMap.Point(116.955245, 31.469232);
+    var point = new BMap.Point(116.783848, 31.309519);
     map.centerAndZoom(point, 15);
     var marker = new BMap.Marker(point);  // 创建标注
     map.addOverlay(marker);               // 将标注添加到地图中
     marker.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画
-    var opts = {    
-      width : 160,     // 信息窗口宽度    
+    var opts = {
+      width: 160,     // 信息窗口宽度    
       height: 25,     // 信息窗口高度    
       // title : "Contact"  // 信息窗口标题   
-    }    
+    }
     var infoWindow = new BMap.InfoWindow("TEL: 18616777015", opts);  // 创建信息窗口对象    
     map.openInfoWindow(infoWindow, map.getCenter());      // 打开信息窗口
+  }
+
+  initLocationAMap() {
+    var map = new AMap.Map('aMapContainer', {
+      center: [116.783848, 31.309519],
+      zoom: 12,
+      features: ['bg', 'road', 'building', 'point']
+    });
+    var marker = new AMap.Marker({
+      position: new AMap.LngLat(116.777454, 31.34034),
+      title: '万佛湖镇'
+    });
+    marker.setMap(map);
   }
 
   onTouchStart = event => {
@@ -113,60 +128,63 @@ export default class extends React.PureComponent {
     const showContact = scrollTop >= this.state.pageHeight + 300;
     const showIntrotext = scrollTop >= 30 * 80 + 20;
     return (
-      <div className="page3" ref={e => (this.pageRef = e)}>
-        <h1 key={'c_' + 0}>Contact</h1>
-        <div className="info-wrapper">
-          <div className="contact">
-            {showContact && (
-              <Trail
-                items={[0, 1].map(e => ({ key: e }))}
-                keys={[0, 1]}
-                native
-                from={{
-                  transform: 'translateY(180px)',
-                  opacity: 0,
-                }}
-                to={{
-                  transform: 'translateY(0)',
-                  opacity: 1,
-                }}
-              >
-                {item => props => (
-                  <animated.div
-                    style={{
-                      ...props,
-                    }}
-                    key={item.key}
-                  >
-                    {item.key === 0 && <h3 key={'c_' + 0}>Send Message</h3>}
-                    {item.key === 1 && <div key={'c_' + 1} className="send-msg">
-                      <div className="input">
-                        <h3>Name</h3>
-                        <SendInput />
-                        <h3>E-mail</h3>
-                        <SendInput />
-                        <h3>Message</h3>
-                        <SendText rows={5}/>
-                      </div>
-                      <SendButton className="send-btn">
-                        <FontAwesomeIcon icon={faLocationArrow} style={{
-                          color: 'white', height: '50%',
-                          width: '50%'
-                        }} size={'xs'} />
-                      </SendButton>
-                    </div>}
-                  </animated.div>
-                )}
-              </Trail>
-            )}
+      <>
+        <script type="text/javascript" src="https://webapi.amap.com/maps?v=1.4.13&key=f676a2d54c6f60886e0c5bdfbd235e74" />
+        <div className="page3" ref={e => (this.pageRef = e)}>
+          <h1 key={'c_' + 0}>Contact</h1>
+          <div className="info-wrapper">
+            <div className="contact">
+              {showContact && (
+                <Trail
+                  items={[0, 1].map(e => ({ key: e }))}
+                  keys={[0, 1]}
+                  native
+                  from={{
+                    transform: 'translateY(180px)',
+                    opacity: 0,
+                  }}
+                  to={{
+                    transform: 'translateY(0)',
+                    opacity: 1,
+                  }}
+                >
+                  {item => props => (
+                    <animated.div
+                      style={{
+                        ...props,
+                      }}
+                      key={item.key}
+                    >
+                      {item.key === 0 && <h3 key={'c_' + 0}>Send Message</h3>}
+                      {item.key === 1 && <div key={'c_' + 1} className="send-msg">
+                        <div className="input">
+                          <h3>Name</h3>
+                          <SendInput />
+                          <h3>E-mail</h3>
+                          <SendInput />
+                          <h3>Message</h3>
+                          <SendText rows={5} />
+                        </div>
+                        <SendButton className="send-btn">
+                          <FontAwesomeIcon icon={faLocationArrow} style={{
+                            color: 'white', height: '50%',
+                            width: '50%'
+                          }} size={'xs'} />
+                        </SendButton>
+                      </div>}
+                    </animated.div>
+                  )}
+                </Trail>
+              )}
+            </div>
+            <div className="loc-info">
+              <h3>My Location</h3>
+              {/* <div id="mapContainer"></div> */}
+              <div id="aMapContainer"></div>
+            </div>
           </div>
-          <div className="loc-info">
-            <h3>My Location</h3>
-            <div id="mapContainer"></div>
-          </div>
-        </div>
-        <style jsx>
-          {`
+          <style jsx>
+            {`
              {
               .page1,
               .page2,
@@ -234,6 +252,11 @@ export default class extends React.PureComponent {
                 height: 15rem;
                 margin-bottom: 5rem;
               }
+              #aMapContainer {
+                width: 100%;
+                height: 15rem;
+                margin-bottom: 2rem;
+              }
               @media(max-width: 764px) {
                 .info-wrapper {
                   flex-direction: column;
@@ -259,8 +282,9 @@ export default class extends React.PureComponent {
               }
             }
           `}
-        </style>
-      </div>
+          </style>
+        </div>
+      </>
     );
   };
 }
