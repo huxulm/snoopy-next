@@ -1,4 +1,4 @@
-import Document, { Head, Main, NextScript } from 'next/document'
+import Document, { Head, Main, NextScript } from 'next/document';
 import { GA_TRACKING_ID } from '../lib/gtag';
 export default class extends Document {
   render() {
@@ -10,10 +10,8 @@ export default class extends Document {
           <meta name="mobile-web-app-capable" content="yes" />
           {/* <script type="text/javascript" src="http://api.map.baidu.com/api?v=3.0&ak=MaBzXM5DIMpEBDL8bQbLSPqzTruINegz" /> */}
           {/* Global Site Tag (gtag.js) - Google Analytics */}
-          <script
-            async
-            src={`https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`}
-          />
+          <link rel="icon" type="image/png" href="/static/favicon.ico" />
+          <script async src={`https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`} />
           <script
             dangerouslySetInnerHTML={{
               __html: `
@@ -22,7 +20,7 @@ export default class extends Document {
             gtag('js', new Date());
 
             gtag('config', '${GA_TRACKING_ID}');
-          `
+          `,
             }}
           />
         </Head>
@@ -31,6 +29,6 @@ export default class extends Document {
           <NextScript />
         </body>
       </html>
-    )
+    );
   }
 }

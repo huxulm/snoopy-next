@@ -26,7 +26,7 @@ export default class extends React.PureComponent {
 
   render = () => {
     return (
-      <Page title="SNOOPY-NEXT">
+      <Page title="Bruce Xu">
         <MediaQueryConsumer>
           {({ isMobile }) => (
             <>
