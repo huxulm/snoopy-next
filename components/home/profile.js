@@ -157,7 +157,7 @@ export default class extends React.PureComponent {
                 style={{
                   color: '#FFF',
                 }}
-                src="http://snp-assets.oss-cn-shanghai.aliyuncs.com/blog_covers/avatar.jpeg"
+                src="https://snp-assets.oss-cn-shanghai.aliyuncs.com/blog_covers/avatar.jpeg"
               />
             </animated.div>
           )}
