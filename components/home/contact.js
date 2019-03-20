@@ -8,8 +8,8 @@ import styled from 'styled-components';
 
 const SendButton = styled.button`
   font-size: 48px;
-  color: #FFF;
-  background: rgba(0, 0, 0, .85);
+  color: #fff;
+  background: rgba(0, 0, 0, 0.85);
   transition: 500ms ease all;
   padding: 4px;
   border: none;
@@ -26,13 +26,13 @@ const SendButton = styled.button`
   height: 48px;
   :hover {
     color: #000;
-    background: rgba(0, 0, 0, .15);
+    background: rgba(0, 0, 0, 0.15);
   }
 `;
 
 const SendInput = styled.input`
-  background: rgba(255, 255, 255, .4);
-  padding: 0 .75rem;
+  background: rgba(255, 255, 255, 0.4);
+  padding: 0 0.75rem;
   border: none;
   cursor: text;
   box-sizing: border-box;
@@ -41,8 +41,8 @@ const SendInput = styled.input`
 `;
 
 const SendText = styled.textarea`
-  background: rgba(255, 255, 255, .4);
-  padding: 0 .75rem;
+  background: rgba(255, 255, 255, 0.4);
+  padding: 0 0.75rem;
   border: none;
   cursor: text;
   box-sizing: border-box;
@@ -71,37 +71,38 @@ export default class extends React.PureComponent {
 
   initLocation() {
     // 百度地图API功能
-    var map = new BMap.Map("mapContainer");
+    var map = new BMap.Map('mapContainer');
     var point = new BMap.Point(116.783848, 31.309519);
     map.centerAndZoom(point, 15);
-    var marker = new BMap.Marker(point);  // 创建标注
-    map.addOverlay(marker);               // 将标注添加到地图中
+    var marker = new BMap.Marker(point); // 创建标注
+    map.addOverlay(marker); // 将标注添加到地图中
     marker.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画
     var opts = {
-      width: 160,     // 信息窗口宽度    
-      height: 25,     // 信息窗口高度    
-      // title : "Contact"  // 信息窗口标题   
-    }
-    var infoWindow = new BMap.InfoWindow("TEL: 18616777015", opts);  // 创建信息窗口对象    
-    map.openInfoWindow(infoWindow, map.getCenter());      // 打开信息窗口
+      width: 160, // 信息窗口宽度
+      height: 25, // 信息窗口高度
+      // title : "Contact"  // 信息窗口标题
+    };
+    var infoWindow = new BMap.InfoWindow('TEL: 18616777015', opts); // 创建信息窗口对象
+    map.openInfoWindow(infoWindow, map.getCenter()); // 打开信息窗口
   }
 
   initLocationAMap() {
+    if (typeof AMap === 'undefined') return;
     var map = new AMap.Map('aMapContainer', {
       center: [116.783848, 31.309519],
       zoom: 12,
-      features: ['bg', 'road', 'building', 'point']
+      features: ['bg', 'road', 'building', 'point'],
     });
     var marker = new AMap.Marker({
       position: new AMap.LngLat(116.777454, 31.34034),
-      title: '万佛湖镇'
+      title: '万佛湖镇',
     });
     marker.setMap(map);
   }
 
   onTouchStart = event => {
     this.onWheel(event);
-  }
+  };
 
   onWheel = event => {
     this.setState({
@@ -129,7 +130,10 @@ export default class extends React.PureComponent {
     const showIntrotext = scrollTop >= 30 * 80 + 20;
     return (
       <>
-        <script type="text/javascript" src="https://webapi.amap.com/maps?v=1.4.13&key=f676a2d54c6f60886e0c5bdfbd235e74" />
+        <script
+          type="text/javascript"
+          src="https://webapi.amap.com/maps?v=1.4.13&key=f676a2d54c6f60886e0c5bdfbd235e74"
+        />
         <div className="page3" ref={e => (this.pageRef = e)}>
           <h1 key={'c_' + 0}>Contact</h1>
           <div className="info-wrapper">
@@ -156,22 +160,29 @@ export default class extends React.PureComponent {
                       key={item.key}
                     >
                       {item.key === 0 && <h3 key={'c_' + 0}>Send Message</h3>}
-                      {item.key === 1 && <div key={'c_' + 1} className="send-msg">
-                        <div className="input">
-                          <h3>Name</h3>
-                          <SendInput />
-                          <h3>E-mail</h3>
-                          <SendInput />
-                          <h3>Message</h3>
-                          <SendText rows={5} />
+                      {item.key === 1 && (
+                        <div key={'c_' + 1} className="send-msg">
+                          <div className="input">
+                            <h3>Name</h3>
+                            <SendInput />
+                            <h3>E-mail</h3>
+                            <SendInput />
+                            <h3>Message</h3>
+                            <SendText rows={5} />
+                          </div>
+                          <SendButton className="send-btn">
+                            <FontAwesomeIcon
+                              icon={faLocationArrow}
+                              style={{
+                                color: 'white',
+                                height: '50%',
+                                width: '50%',
+                              }}
+                              size={'xs'}
+                            />
+                          </SendButton>
                         </div>
-                        <SendButton className="send-btn">
-                          <FontAwesomeIcon icon={faLocationArrow} style={{
-                            color: 'white', height: '50%',
-                            width: '50%'
-                          }} size={'xs'} />
-                        </SendButton>
-                      </div>}
+                      )}
                     </animated.div>
                   )}
                 </Trail>
@@ -180,7 +191,7 @@ export default class extends React.PureComponent {
             <div className="loc-info">
               <h3>My Location</h3>
               {/* <div id="mapContainer"></div> */}
-              <div id="aMapContainer"></div>
+              <div id="aMapContainer" />
             </div>
           </div>
           <style jsx>
